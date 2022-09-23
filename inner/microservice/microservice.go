@@ -6,6 +6,7 @@ import (
 	"github.com/eneskzlcn/goarch/inner/cmd"
 	continous_delivery "github.com/eneskzlcn/goarch/inner/continous-delivery"
 	"github.com/eneskzlcn/goarch/inner/dev"
+	"github.com/eneskzlcn/goarch/inner/postgres"
 	"github.com/eneskzlcn/goarch/inner/server"
 	"github.com/eneskzlcn/goarch/inner/tech"
 )
@@ -28,9 +29,9 @@ func CreateArchitecture(options tech.Options) error {
 	//	return err
 	//}
 	//
-	//if err := PreparePostgresDirectory(); err != nil {
-	//	return err
-	//}
+	if err := postgres.PrepareDirectory(arch.Microservice); err != nil {
+		return err
+	}
 	//if err := PrepareLoggerDirectory(); err != nil {
 	//	return err
 	//}
