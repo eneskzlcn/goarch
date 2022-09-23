@@ -1,0 +1,103 @@
+package rabbitmq
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	config "<path_to_config>/config"
+	amqp "github.com/rabbitmq/amqp091-go"
+	"time"
+)
+
+type Logger interface {
+	Error(args ...interface{})
+    Errorf(template string, args ...interface{})
+	Debug(args ...interface{})
+	Debugf(template string, args ...interface{})
+}
+
+type Client struct {
+	connection *amqp.Connection
+	logger     Logger
+}
+
+func New(config config.RabbitMQ, logger Logger) *Client {
+	if logger == nil {
+		fmt.Println("given logger is nil")
+		return nil
+	}
+	con, err := amqp.Dial(createConnectionUrl(config))
+	if err != nil {
+		logger.Error("error occurred when connecting to rabbitmq server", err)
+		return nil
+	}
+	ch, err := con.Channel()
+	defer ch.Close()
+	for _, queue := range config.Queues {
+		_, err = ch.QueueDeclare(queue, false, false, false, false, nil)
+		if err != nil {
+			logger.Error("error when declaring new queue")
+			return nil
+		}
+	}
+
+	return &Client{connection: con, logger: logger}
+}
+
+func (c *Client) PushMessage(message any, queue string) error {
+	c.logger.Debugf("Pushing message to rabbitmq queue:%s", queue)
+	messageBytes, err := json.Marshal(message)
+	if err != nil {
+		c.logger.Errorf("error marshalling the message %v", message)
+		return err
+	}
+	ch, err := c.connection.Channel()
+	if err != nil {
+		c.logger.Error("error reaching channel from connection")
+		return err
+	}
+	defer ch.Close()
+	context, cancelFn := context.WithTimeout(context.Background(), time.Second*40)
+	defer cancelFn()
+	err = ch.PublishWithContext(context,
+		"", queue, false, false,
+		amqp.Publishing{
+			Headers:     nil,
+			ContentType: "text/plain",
+			Body:        messageBytes,
+		})
+	if err != nil {
+		c.logger.Error("error occurred when publishing the message ")
+		return err
+	}
+	return nil
+}
+
+func (c *Client) Consume(messageReceived chan []byte, consumer string, queue string) {
+	ch, err := c.connection.Channel()
+	defer ch.Close()
+	if err != nil {
+		return
+	}
+	msgs, err := ch.Consume(
+		queue,
+		consumer,
+		true,
+		false,
+		false,
+		false,
+		nil,
+	)
+	var forever chan struct{}
+	go func() {
+		for d := range msgs {
+			c.logger.Debugf("Received a message: %s", string(d.Body))
+			messageReceived <- d.Body
+		}
+	}()
+	<-forever
+}
+
+func createConnectionUrl(config config.RabbitMQ) string {
+	return fmt.Sprintf("amqp://%s:%s@%s:%s/", config.Username, config.Password, config.Host, config.Port)
+}
