@@ -1,11 +1,13 @@
 package internal
 
 import (
+	"github.com/eneskzlcn/goarch/inner/client"
 	"github.com/eneskzlcn/goarch/inner/config"
 	"github.com/eneskzlcn/goarch/inner/core/arch"
 	"github.com/eneskzlcn/goarch/inner/core/utl"
 	"github.com/eneskzlcn/goarch/inner/domain"
 	"github.com/eneskzlcn/goarch/inner/mocks"
+	"github.com/eneskzlcn/goarch/inner/util"
 )
 
 var architectureAbsPathMap = map[arch.Type]string{
@@ -33,9 +35,13 @@ func PrepareDirectory(architecture arch.Type) error {
 	if err := mocks.PrepareDirectory(); err != nil {
 		return err
 	}
-	// PrepareDomainDirectory
-	// PrepareClientDirectory
-	// PrepareUtilDirectory
-	//PrepareMocksDirectory
+	if err := util.PrepareDirectory(architecture); err != nil {
+		return err
+	}
+
+	if err := client.PrepareDirectory(architecture); err != nil {
+		return err
+	}
+
 	return nil
 }
