@@ -2,7 +2,7 @@ package cmd
 
 import (
 	_ "embed"
-	"github.com/eneskzlcn/goarch/inner/utl"
+	"github.com/eneskzlcn/goarch/inner/core/utl"
 	"os"
 	"path"
 )

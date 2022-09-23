@@ -3,10 +3,11 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"github.com/eneskzlcn/goarch/inner/arch"
-	"github.com/eneskzlcn/goarch/inner/goarch"
+	"github.com/eneskzlcn/goarch/inner/core/arch"
+	"github.com/eneskzlcn/goarch/inner/core/goarch"
 	"github.com/eneskzlcn/goarch/inner/tech"
 	"os"
+	"runtime"
 )
 
 //func CreateCmdDirectory() error {
@@ -28,6 +29,10 @@ import (
 
 func main() {
 	var err error
+	if runtime.GOARCH != "arm64" || runtime.GOOS != "darwin" {
+		fmt.Println("This application written and serving for arm64/darwin vehicles.")
+		return
+	}
 	if len(os.Args) <= 1 {
 		err = goarch.Create(arch.Default, tech.DefaultOptions)
 	} else {

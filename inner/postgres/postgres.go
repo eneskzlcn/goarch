@@ -2,8 +2,8 @@ package postgres
 
 import (
 	_ "embed"
-	"github.com/eneskzlcn/goarch/inner/arch"
-	"github.com/eneskzlcn/goarch/inner/utl"
+	"github.com/eneskzlcn/goarch/inner/core/arch"
+	"github.com/eneskzlcn/goarch/inner/core/utl"
 )
 
 //go:embed postgres_go.arch
