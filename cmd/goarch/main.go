@@ -29,7 +29,7 @@ import (
 func main() {
 	var err error
 	if len(os.Args) <= 1 {
-		err = goarch.Create(arch.Default, tech.DefaultOptions...)
+		err = goarch.Create(arch.Default, tech.DefaultOptions)
 	} else {
 		//err = CreateArchitecture(os.Args[1], DefaultDirectory)
 		fmt.Println("not valid args.")

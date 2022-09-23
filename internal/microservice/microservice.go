@@ -3,10 +3,11 @@ package microservice
 import (
 	"github.com/eneskzlcn/goarch/internal/arch"
 	"github.com/eneskzlcn/goarch/internal/dev"
+	"github.com/eneskzlcn/goarch/internal/server"
 	"github.com/eneskzlcn/goarch/internal/tech"
 )
 
-func CreateArchitecture(technologyOptions ...tech.Options) error {
+func CreateArchitecture(options tech.Options) error {
 
 	if err := dev.PrepareDirectory(arch.Microservice); err != nil {
 		return err
@@ -14,9 +15,9 @@ func CreateArchitecture(technologyOptions ...tech.Options) error {
 	//if err := CreateCmdDirectory(); err != nil {
 	//	return err
 	//}
-	//if err := PrepareServerDirectory(Gin); err != nil {
-	//	return err
-	//}
+	if err := server.PrepareDirectory(arch.Microservice, options); err != nil {
+		return err
+	}
 
 	//if err := PrepareInternalDirectory(); err != nil {
 	//	return err

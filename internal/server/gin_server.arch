@@ -1,0 +1,40 @@
+package server
+
+import (
+	"fmt"
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
+
+type Handler interface {
+	RegisterRoutes(engine *gin.Engine)
+}
+type Logger interface {
+	Debugf(template string, args ...interface{})
+}
+type Server struct {
+	engine *gin.Engine
+	port   string
+	logger Logger
+}
+
+func NewServer(handlers []Handler, trustedProxies []string, port string, logger Logger) *Server {
+	engine := gin.Default()
+	engine.SetTrustedProxies(trustedProxies)
+	server := Server{port: port, engine: engine, logger: logger}
+	for _, handler := range handlers {
+		handler.RegisterRoutes(server.engine)
+	}
+	server.AddRoutes()
+	return &server
+}
+func (s *Server) AddRoutes() {
+	s.engine.GET("/health", s.healthCheck)
+}
+func (s *Server) healthCheck(ctx *gin.Context) {
+	ctx.Status(http.StatusOK)
+}
+func (s *Server) Start() error {
+	s.logger.Debugf("server started to listen at: %s", s.port)
+	return s.engine.Run(fmt.Sprintf("localhost:%s", s.port))
+}

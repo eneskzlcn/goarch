@@ -6,7 +6,7 @@ import (
 	"github.com/eneskzlcn/goarch/internal/file"
 )
 
-//go:embed default_config_yaml.architecture
+//go:embed default_config_yaml.arch
 var defaultConfigYamlContent string
 
 var directoryName = ".dev"
@@ -36,19 +36,19 @@ func PrepareDirectory(architecture arch.Type) error {
 //		return err
 //	}
 //
-//	if err := CreateFileWithContent(".dev/dev.yaml", ConfigurationYamlContent); err != nil {
+//	if err := Options(".dev/dev.yaml", ConfigurationYamlContent); err != nil {
 //		return err
 //	}
 //
-//	if err := CreateFileWithContent(".dev/qa.yaml", ConfigurationYamlContent); err != nil {
+//	if err := Options(".dev/qa.yaml", ConfigurationYamlContent); err != nil {
 //		return err
 //	}
 //
-//	if err := CreateFileWithContent(".dev/prod.yaml", ConfigurationYamlContent); err != nil {
+//	if err := Options(".dev/prod.yaml", ConfigurationYamlContent); err != nil {
 //		return err
 //	}
 //
-//	if err := CreateFileWithContent(".dev/local.yaml", ConfigurationYamlContent); err != nil {
+//	if err := Options(".dev/local.yaml", ConfigurationYamlContent); err != nil {
 //		return err
 //	}
 //

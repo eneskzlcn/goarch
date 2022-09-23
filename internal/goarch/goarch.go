@@ -7,12 +7,12 @@ import (
 	"github.com/eneskzlcn/goarch/internal/tech"
 )
 
-func Create(architecture arch.Type, options ...tech.Options) error {
+func Create(architecture arch.Type, options tech.Options) error {
 	switch architecture {
 	case arch.NLayeredBackend:
 		panic("not implemented yet")
 	case arch.Microservice:
-		return microservice.CreateArchitecture(options...)
+		return microservice.CreateArchitecture(options)
 	case arch.NLayeredWebApp:
 		panic("not implemented yet")
 	}
