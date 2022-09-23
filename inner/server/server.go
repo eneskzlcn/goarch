@@ -2,9 +2,9 @@ package server
 
 import (
 	_ "embed"
-	"github.com/eneskzlcn/goarch/internal/arch"
-	"github.com/eneskzlcn/goarch/internal/file"
-	"github.com/eneskzlcn/goarch/internal/tech"
+	"github.com/eneskzlcn/goarch/inner/arch"
+	"github.com/eneskzlcn/goarch/inner/tech"
+	"github.com/eneskzlcn/goarch/inner/utl"
 )
 
 const (
@@ -27,22 +27,22 @@ var architectureAbsPathMap = map[arch.Type]string{
 }
 
 func PrepareDirectory(architecture arch.Type, options tech.Options) error {
-	if err := file.CreateDirectory(architectureAbsPathMap[architecture], directoryName); err != nil {
+	if err := utl.CreateDirectory(architectureAbsPathMap[architecture], directoryName); err != nil {
 		return err
 	}
 	if options.Has(tech.Fiber) {
-		err := file.CreateFileWithContent(architectureAbsPathMap[architecture]+"/"+directoryName,
+		err := utl.CreateFileWithContent(architectureAbsPathMap[architecture]+"/"+directoryName,
 			serverFileName, fiberServerContent)
 		if err != nil {
 			return err
 		}
 	} else if options.Has(tech.Gin) {
-		err := file.CreateFileWithContent(architectureAbsPathMap[architecture]+"/"+directoryName,
+		err := utl.CreateFileWithContent(architectureAbsPathMap[architecture]+"/"+directoryName,
 			serverFileName, fiberServerContent)
 		if err != nil {
 			return err
 		}
 	}
-	return file.CreateFileWithContent(architectureAbsPathMap[architecture]+"/"+directoryName,
+	return utl.CreateFileWithContent(architectureAbsPathMap[architecture]+"/"+directoryName,
 		serverTestFileName, serverTestContent)
 }

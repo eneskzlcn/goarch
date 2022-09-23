@@ -2,9 +2,9 @@ package goarch
 
 import (
 	"errors"
-	"github.com/eneskzlcn/goarch/internal/arch"
-	"github.com/eneskzlcn/goarch/internal/microservice"
-	"github.com/eneskzlcn/goarch/internal/tech"
+	"github.com/eneskzlcn/goarch/inner/arch"
+	"github.com/eneskzlcn/goarch/inner/microservice"
+	"github.com/eneskzlcn/goarch/inner/tech"
 )
 
 func Create(architecture arch.Type, options tech.Options) error {

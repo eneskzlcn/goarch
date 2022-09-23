@@ -2,8 +2,8 @@ package dev
 
 import (
 	_ "embed"
-	"github.com/eneskzlcn/goarch/internal/arch"
-	"github.com/eneskzlcn/goarch/internal/file"
+	"github.com/eneskzlcn/goarch/inner/arch"
+	"github.com/eneskzlcn/goarch/inner/utl"
 )
 
 //go:embed default_config_yaml.arch
@@ -18,11 +18,11 @@ var architectureAbsPathMap = map[arch.Type]string{
 }
 
 func PrepareDirectory(architecture arch.Type) error {
-	if err := file.CreateDirectory(architectureAbsPathMap[architecture], directoryName); err != nil {
+	if err := utl.CreateDirectory(architectureAbsPathMap[architecture], directoryName); err != nil {
 		return err
 	}
 	for _, configFileName := range configFileNames {
-		if err := file.CreateFileWithContent(architectureAbsPathMap[architecture]+"/"+directoryName,
+		if err := utl.CreateFileWithContent(architectureAbsPathMap[architecture]+"/"+directoryName,
 			configFileName, defaultConfigYamlContent); err != nil {
 			return err
 		}
