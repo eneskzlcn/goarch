@@ -1,4 +1,4 @@
-package command
+package file
 
 import (
 	"fmt"
@@ -8,10 +8,6 @@ import (
 
 func CreateDirectory(absPath, name string) error {
 	return exec.Command("mkdir", absPath+"/"+name).Run()
-}
-
-func CreateFile(absolutePathWithName string) error {
-	return exec.Command("touch", absolutePathWithName).Run()
 }
 
 func CreateFileWithContent(absPath, name, content string) error {

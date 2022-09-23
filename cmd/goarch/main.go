@@ -3,9 +3,9 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"github.com/eneskzlcn/goarch/arch"
-	"github.com/eneskzlcn/goarch/goarch"
-	"github.com/eneskzlcn/goarch/tech"
+	"github.com/eneskzlcn/goarch/internal/arch"
+	"github.com/eneskzlcn/goarch/internal/goarch"
+	"github.com/eneskzlcn/goarch/internal/tech"
 	"os"
 )
 

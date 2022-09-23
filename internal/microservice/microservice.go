@@ -1,9 +1,9 @@
 package microservice
 
 import (
-	"github.com/eneskzlcn/goarch/arch"
-	"github.com/eneskzlcn/goarch/dev"
-	"github.com/eneskzlcn/goarch/tech"
+	"github.com/eneskzlcn/goarch/internal/arch"
+	"github.com/eneskzlcn/goarch/internal/dev"
+	"github.com/eneskzlcn/goarch/internal/tech"
 )
 
 func CreateArchitecture(technologyOptions ...tech.Options) error {
