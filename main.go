@@ -3,26 +3,10 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"github.com/eneskzlcn/goarch/anotherway"
-	"github.com/eneskzlcn/goarch/inner/core/tech"
+	"github.com/eneskzlcn/goarch/microservice"
+	"github.com/eneskzlcn/goarch/tech"
+	"os"
 )
-
-//func CreateCmdDirectory() error {
-//	if err := CreateDirectory("cmd"); err != nil {
-//		return err
-//	}
-//
-//	currentDirectory, _ := os.Getwd()
-//	projectDirName := path.Base(currentDirectory)
-//	if err := CreateDirectory(fmt.Sprintf("cmd/%s", projectDirName)); err != nil {
-//		return err
-//	}
-//
-//	if err := CreateFile(fmt.Sprintf("cmd/%s/main.go", projectDirName)); err != nil {
-//
-//	}
-//	return nil
-//}
 
 func main() {
 	//var err error
@@ -39,7 +23,9 @@ func main() {
 	//if err != nil {
 	//	fmt.Println("error occurred when creating architecture", err.Error())
 	//}
-	if err := anotherway.CreateMicroserviceArchitecture(tech.DefaultOptions); err != nil {
-		fmt.Println(err)
+	if err := microservice.CreateArchitecture(tech.DefaultOptions); err != nil {
+		fmt.Println(err.Error())
+		os.Exit(5)
 	}
+	os.Exit(0)
 }
