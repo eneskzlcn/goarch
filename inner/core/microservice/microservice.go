@@ -5,6 +5,7 @@ import (
 	"github.com/eneskzlcn/goarch/inner/cmd"
 	continous_delivery "github.com/eneskzlcn/goarch/inner/continous-delivery"
 	"github.com/eneskzlcn/goarch/inner/core/arch"
+	"github.com/eneskzlcn/goarch/inner/core/tech"
 	"github.com/eneskzlcn/goarch/inner/dev"
 	"github.com/eneskzlcn/goarch/inner/internal"
 	"github.com/eneskzlcn/goarch/inner/logger"
@@ -12,7 +13,6 @@ import (
 	"github.com/eneskzlcn/goarch/inner/rabbitmq"
 	"github.com/eneskzlcn/goarch/inner/seed"
 	"github.com/eneskzlcn/goarch/inner/server"
-	"github.com/eneskzlcn/goarch/inner/tech"
 )
 
 func CreateArchitecture(options tech.Options) error {

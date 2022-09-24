@@ -5,7 +5,7 @@ import (
 	"github.com/eneskzlcn/goarch/inner/core/arch"
 	"github.com/eneskzlcn/goarch/inner/core/microservice"
 	"github.com/eneskzlcn/goarch/inner/core/nlayered"
-	"github.com/eneskzlcn/goarch/inner/tech"
+	"github.com/eneskzlcn/goarch/inner/core/tech"
 )
 
 type ArchitectureCreator func(options tech.Options) error

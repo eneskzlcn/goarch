@@ -3,11 +3,8 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"github.com/eneskzlcn/goarch/inner/core/arch"
-	"github.com/eneskzlcn/goarch/inner/core/goarch"
-	"github.com/eneskzlcn/goarch/inner/tech"
-	"os"
-	"runtime"
+	"github.com/eneskzlcn/goarch/anotherway"
+	"github.com/eneskzlcn/goarch/inner/core/tech"
 )
 
 //func CreateCmdDirectory() error {
@@ -28,18 +25,21 @@ import (
 //}
 
 func main() {
-	var err error
-	if runtime.GOARCH != "arm64" || runtime.GOOS != "darwin" {
-		fmt.Println("This application written and serving for arm64/darwin vehicles.")
-		return
-	}
-	if len(os.Args) <= 1 {
-		err = goarch.Create(arch.Default, tech.DefaultOptions)
-	} else {
-		//err = CreateArchitecture(os.Args[1], DefaultDirectory)
-		fmt.Println("not valid args.")
-	}
-	if err != nil {
-		fmt.Println("error occurred when creating architecture", err.Error())
+	//var err error
+	//if runtime.GOARCH != "arm64" || runtime.GOOS != "darwin" {
+	//	fmt.Println("This application written and serving for arm64/darwin vehicles.")
+	//	return
+	//}
+	//if len(os.Args) <= 1 {
+	//	err = goarch.Create(arch.Default, tech.DefaultOptions)
+	//} else {
+	//	//err = CreateArchitecture(os.Args[1], DefaultDirectory)
+	//	fmt.Println("not valid args.")
+	//}
+	//if err != nil {
+	//	fmt.Println("error occurred when creating architecture", err.Error())
+	//}
+	if err := anotherway.CreateMicroserviceArchitecture(tech.DefaultOptions); err != nil {
+		fmt.Println(err)
 	}
 }

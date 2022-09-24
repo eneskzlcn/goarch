@@ -3,8 +3,8 @@ package server
 import (
 	_ "embed"
 	"github.com/eneskzlcn/goarch/inner/core/arch"
+	"github.com/eneskzlcn/goarch/inner/core/tech"
 	"github.com/eneskzlcn/goarch/inner/core/utl"
-	"github.com/eneskzlcn/goarch/inner/tech"
 )
 
 const (
