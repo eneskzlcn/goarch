@@ -2,12 +2,12 @@ package common
 
 import (
 	_ "embed"
-	"github.com/eneskzlcn/goarch/arch"
+	"github.com/eneskzlcn/goarch/architecture"
 )
 
 //MARK: All common root directories including .dev, seed, cmd inside of that variable RootDirectories
 
-var RootDirectories = arch.Directories{
+var RootDirectories = architecture.Directories{
 	seedDirectory,
 	devDirectory,
 	cmdDirectory,
@@ -34,15 +34,15 @@ var seedCreateSeedSqlFileContent string
 //go:embed templates/seed/drop_sql.arch
 var seedDropSeedSqlFileContent string
 
-var seedDirectory = arch.Directory{
-	AbsPath: arch.RootDirectory,
+var seedDirectory = architecture.Directory{
+	AbsPath: architecture.RootDirectory,
 	Name:    "seed",
-	SubDir: arch.Directories{
+	SubDir: architecture.Directories{
 		{
 			AbsPath: "./seed",
 			Name:    "cmd",
 			SubDir:  nil,
-			Files: arch.Files{
+			Files: architecture.Files{
 				{
 					Name:    "main.go",
 					Content: seedCmdMainFileContent,
@@ -50,7 +50,7 @@ var seedDirectory = arch.Directory{
 			},
 		},
 	},
-	Files: arch.Files{
+	Files: architecture.Files{
 		{
 			Name:    "create-seed.sql",
 			Content: seedCreateSeedSqlFileContent,
@@ -75,11 +75,11 @@ var seedDirectory = arch.Directory{
 //go:embed templates/.dev/default_config_yaml.arch
 var devDefaultConfigYamlContent string
 
-var devDirectory = arch.Directory{
-	AbsPath: arch.RootDirectory,
+var devDirectory = architecture.Directory{
+	AbsPath: architecture.RootDirectory,
 	Name:    ".dev",
 	SubDir:  nil,
-	Files: arch.Files{
+	Files: architecture.Files{
 		{
 			Name:    "dev.yaml",
 			Content: devDefaultConfigYamlContent,
@@ -104,11 +104,11 @@ var devDirectory = arch.Directory{
 //go:embed templates/cmd/main_go.arch
 var cmdDirectoryMainFileContent string
 
-var cmdDirectory = arch.Directory{
-	AbsPath: arch.RootDirectory,
+var cmdDirectory = architecture.Directory{
+	AbsPath: architecture.RootDirectory,
 	Name:    "cmd",
 	SubDir:  nil,
-	Files: arch.Files{
+	Files: architecture.Files{
 		{
 			Name:    "main.go",
 			Content: cmdDirectoryMainFileContent,
@@ -133,18 +133,18 @@ var cdPvYamlFileContent string
 //go:embed templates/continous-delivery/deployment_artifacts/pv-claim_arch
 var cdPvClaimFileContent string
 
-func cdDirectory() arch.Directory {
+func cdDirectory() architecture.Directory {
 	name := ".cd"
-	cdDir := arch.RootDirectory + "/" + name
-	return arch.Directory{
-		AbsPath: arch.RootDirectory,
+	cdDir := architecture.RootDirectory + "/" + name
+	return architecture.Directory{
+		AbsPath: architecture.RootDirectory,
 		Name:    name,
-		SubDir: arch.Directories{
+		SubDir: architecture.Directories{
 			{
 				AbsPath: cdDir,
 				Name:    "deployment-artifacts",
 				SubDir:  nil,
-				Files: arch.Files{
+				Files: architecture.Files{
 					{
 						Name:    "service.yaml",
 						Content: cdServiceYamlFileContent,
@@ -160,7 +160,7 @@ func cdDirectory() arch.Directory {
 				},
 			},
 		},
-		Files: arch.Files{
+		Files: architecture.Files{
 			{
 				Name:    "cd.yaml",
 				Content: cdYamlFileContent,

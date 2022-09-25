@@ -1,4 +1,4 @@
-package arch
+package architecture
 
 import (
 	"github.com/eneskzlcn/goarch/utl"

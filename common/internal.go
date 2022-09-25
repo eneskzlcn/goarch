@@ -2,7 +2,13 @@ package common
 
 import (
 	_ "embed"
-	"github.com/eneskzlcn/goarch/arch"
+	"github.com/eneskzlcn/goarch/architecture"
+	"github.com/eneskzlcn/goarch/goarch/directory"
+)
+
+const (
+	ConfigDirectoryName = "config"
+	MocksDirectoryName  = "mocks"
 )
 
 //MARK: ./internal/config directory initialization.
@@ -16,18 +22,18 @@ var configTestFileContent string
 //go:embed templates/config/db_go.arch
 var configDBFileContent string
 
-func ConfigDirectory(t arch.Type) arch.Directory {
-	return arch.Directory{
-		AbsPath: arch.PathByArchAndDirName[t]["config"],
-		Name:    "config",
+func ConfigDirectory(architectureType architecture.Type) architecture.Directory {
+	return architecture.Directory{
+		AbsPath: directory.FindPathOfGivenDirectoryByNameAndArchitecture(ConfigDirectoryName, architectureType),
+		Name:    ConfigDirectoryName,
 		SubDir:  nil,
-		Files: arch.Files{
+		Files: architecture.Files{
 			{
-				Name:    "config.go",
+				Name:    ConfigDirectoryName + ".go",
 				Content: configFileContent,
 			},
 			{
-				Name:    "config_test.go",
+				Name:    ConfigDirectoryName + "_test.go",
 				Content: configTestFileContent,
 			},
 			{
@@ -40,22 +46,21 @@ func ConfigDirectory(t arch.Type) arch.Directory {
 
 //MARK: ./internal/mocks directory initialization.
 
-func MocksDirectory(t arch.Type) arch.Directory {
-	dirName := "mocks"
-	dirPath := arch.PathByArchAndDirName[t][dirName]
+func MocksDirectory(architectureType architecture.Type) architecture.Directory {
+	dirPath := directory.FindPathOfGivenDirectoryByNameAndArchitecture(MocksDirectoryName, architectureType)
 	exFile := "mock_user_repository"
-	return arch.Directory{
+	return architecture.Directory{
 		AbsPath: dirPath,
-		Name:    dirName,
+		Name:    MocksDirectoryName,
 		SubDir:  nil,
-		Files: arch.Files{
+		Files: architecture.Files{
 			{
 				Name:    exFile + ".go",
-				Content: "package " + dirName,
+				Content: "package " + MocksDirectoryName,
 			},
 			{
 				Name:    exFile + "_test.go",
-				Content: "package " + dirName + "_test",
+				Content: "package " + MocksDirectoryName + "_test",
 			},
 		},
 	}

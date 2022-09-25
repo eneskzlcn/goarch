@@ -2,27 +2,30 @@ package common
 
 import (
 	_ "embed"
-	"github.com/eneskzlcn/goarch/arch"
+	"github.com/eneskzlcn/goarch/architecture"
+	"github.com/eneskzlcn/goarch/file"
+	"github.com/eneskzlcn/goarch/goarch/directory"
+)
+
+const (
+	GinDirectoryName      = "server"
+	FiberDirectoryName    = GinDirectoryName
+	PostgresDirectoryName = "postgres"
+	KafkaDirectoryName    = "kafka"
+	RabbitmqDirectoryName = "rabbitmq"
 )
 
 //MARK: ./kafka directory initialization.
 
-func KafkaDirectory(t arch.Type) arch.Directory {
-	return arch.Directory{
-		AbsPath: arch.PathByArchAndDirName[t]["kafka"],
-		Name:    "kafka",
+func KafkaDirectory(architectureType architecture.Type) architecture.Directory {
+	emptyGoFileNames := []string{KafkaDirectoryName}
+	return architecture.Directory{
+		AbsPath: directory.FindPathOfGivenDirectoryByNameAndArchitecture(KafkaDirectoryName, architectureType),
+		Name:    KafkaDirectoryName,
 		SubDir:  nil,
-		Files: arch.Files{
-			{
-				Name:    "kafka.go",
-				Content: "package kafka",
-			},
-			{
-				Name:    "kafka.go",
-				Content: "package kafka_test",
-			},
-		},
+		Files:   file.CreateEmptyGoAndTestFilesByGivenFileNames(emptyGoFileNames...),
 	}
+
 }
 
 //MARK: ./rabbitmq directory initialization.
@@ -30,21 +33,13 @@ func KafkaDirectory(t arch.Type) arch.Directory {
 //go:embed templates/rabbitmq/rabbitmq_go.arch
 var rabbitmqFileContent string
 
-func RabbitmqDirectory(t arch.Type) arch.Directory {
-	return arch.Directory{
-		AbsPath: arch.PathByArchAndDirName[t]["rabbitmq"],
-		Name:    "rabbitmq",
+func RabbitmqDirectory(architectureType architecture.Type) architecture.Directory {
+	emptyGoFileNames := []string{RabbitmqDirectoryName}
+	return architecture.Directory{
+		AbsPath: directory.FindPathOfGivenDirectoryByNameAndArchitecture(RabbitmqDirectoryName, architectureType),
+		Name:    RabbitmqDirectoryName,
 		SubDir:  nil,
-		Files: arch.Files{
-			{
-				Name:    "rabbitmq.go",
-				Content: rabbitmqFileContent,
-			},
-			{
-				Name:    "rabbitmq_test.go",
-				Content: "package rabbitmq_test",
-			},
-		},
+		Files:   file.CreateEmptyGoAndTestFilesByGivenFileNames(emptyGoFileNames...),
 	}
 }
 
@@ -53,19 +48,19 @@ func RabbitmqDirectory(t arch.Type) arch.Directory {
 //go:embed templates/server/fiber_server.arch
 var fiberServerFileContent string
 
-func FiberDirectory(p arch.Type) arch.Directory {
-	return arch.Directory{
-		AbsPath: arch.PathByArchAndDirName[p]["server"],
-		Name:    "server",
+func FiberDirectory(architectureType architecture.Type) architecture.Directory {
+	return architecture.Directory{
+		AbsPath: directory.FindPathOfGivenDirectoryByNameAndArchitecture(FiberDirectoryName, architectureType),
+		Name:    FiberDirectoryName,
 		SubDir:  nil,
-		Files: arch.Files{
+		Files: architecture.Files{
 			{
-				Name:    "server.go",
+				Name:    FiberDirectoryName + ".go",
 				Content: fiberServerFileContent,
 			},
 			{
-				Name:    "server_test.go",
-				Content: "package server_test",
+				Name:    FiberDirectoryName + "_test.go",
+				Content: "package " + FiberDirectoryName + "_test",
 			},
 		},
 	}
@@ -74,12 +69,12 @@ func FiberDirectory(p arch.Type) arch.Directory {
 //go:embed templates/server/gin_server.arch
 var ginServerFileContent string
 
-func GinDirectory(p arch.Type) arch.Directory {
-	return arch.Directory{
-		AbsPath: arch.PathByArchAndDirName[p]["server"],
+func GinDirectory(architectureType architecture.Type) architecture.Directory {
+	return architecture.Directory{
+		AbsPath: directory.FindPathOfGivenDirectoryByNameAndArchitecture(GinDirectoryName, architectureType),
 		Name:    "server",
 		SubDir:  nil,
-		Files: arch.Files{
+		Files: architecture.Files{
 			{
 				Name:    "server.go",
 				Content: ginServerFileContent,
@@ -103,23 +98,22 @@ var postgresTestFileContent string
 //go:embed templates/postgres/mock_postgres_go.arch
 var mockPostgresFileContent string
 
-func PostgresDirectory(p arch.Type) arch.Directory {
-	dirName := "postgres"
-	return arch.Directory{
-		AbsPath: arch.PathByArchAndDirName[p][dirName],
-		Name:    dirName,
+func PostgresDirectory(architectureType architecture.Type) architecture.Directory {
+	return architecture.Directory{
+		AbsPath: directory.FindPathOfGivenDirectoryByNameAndArchitecture(PostgresDirectoryName, architectureType),
+		Name:    PostgresDirectoryName,
 		SubDir:  nil,
-		Files: arch.Files{
+		Files: architecture.Files{
 			{
-				Name:    dirName + ".go",
+				Name:    PostgresDirectoryName + ".go",
 				Content: postgresGoFileContent,
 			},
 			{
-				Name:    dirName + "_test.go",
+				Name:    PostgresDirectoryName + "_test.go",
 				Content: postgresTestFileContent,
 			},
 			{
-				Name:    "mock_" + dirName + ".go",
+				Name:    "mock_" + PostgresDirectoryName + ".go",
 				Content: mockPostgresFileContent,
 			},
 		},

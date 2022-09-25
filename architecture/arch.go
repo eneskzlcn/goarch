@@ -1,4 +1,4 @@
-package arch
+package architecture
 
 type Architecture struct {
 	Directories Directories
@@ -20,6 +20,7 @@ func (a *Architecture) Print() {
 	for _, dir := range a.Directories {
 		dir.Print()
 	}
+
 }
 
 const (
@@ -28,7 +29,7 @@ const (
 	InternalDirectory = "./internal"
 )
 
-var PathByArchAndDirName = map[Type]map[string]string{
+var DirectoryPathByArchitectureAndDirectoryName = map[Type]map[string]string{
 	Microservice: {
 		"kafka":    RootDirectory,
 		"logger":   RootDirectory,

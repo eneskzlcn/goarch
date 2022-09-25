@@ -2,7 +2,14 @@ package common
 
 import (
 	_ "embed"
-	"github.com/eneskzlcn/goarch/arch"
+	"github.com/eneskzlcn/goarch/architecture"
+	"github.com/eneskzlcn/goarch/goarch/directory"
+)
+
+const (
+	ClientDirectoryName = "client"
+	UtilDirectoryName   = "util"
+	LoggerDirectoryName = "logger"
 )
 
 //MARK: ./logger or ./internal/core/logger directory initialization.
@@ -16,23 +23,23 @@ var loggerZapFileContent string
 //go:embed templates/logger/zap_logger_test.arch
 var loggerZapTestFileContent string
 
-func LoggerDirectory(t arch.Type) arch.Directory {
-	dirName := "logger"
-	return arch.Directory{
-		AbsPath: arch.PathByArchAndDirName[t][dirName],
-		Name:    dirName,
+func LoggerDirectory(architectureType architecture.Type) architecture.Directory {
+	zapLoggerFileName := "zap_logger_adapter"
+	return architecture.Directory{
+		AbsPath: directory.FindPathOfGivenDirectoryByNameAndArchitecture(LoggerDirectoryName, architectureType),
+		Name:    LoggerDirectoryName,
 		SubDir:  nil,
-		Files: arch.Files{
+		Files: architecture.Files{
 			{
-				Name:    dirName + ".go",
+				Name:    LoggerDirectoryName + ".go",
 				Content: loggerFileContent,
 			},
 			{
-				Name:    "zap_logger_adapter.go",
+				Name:    zapLoggerFileName + ".go",
 				Content: loggerZapFileContent,
 			},
 			{
-				Name:    "zap_logger_adapter_test.go",
+				Name:    zapLoggerFileName + "_test.go",
 				Content: loggerZapTestFileContent,
 			},
 		},
@@ -41,50 +48,26 @@ func LoggerDirectory(t arch.Type) arch.Directory {
 
 //MARK: ./internal/client or ./internal/core/client directory initialization.
 
-func ClientDirectory(t arch.Type) arch.Directory {
-	dirName := "client"
-	kafkaDirName := "kafkaclient"
-	httpDirName := "httpclient"
-	rabbitmqDirName := "rabbitmqclient"
-	clientDirPath := arch.PathByArchAndDirName[t][dirName] + "/" + dirName
-	return arch.Directory{
-		AbsPath: arch.PathByArchAndDirName[t][dirName],
-		Name:    dirName,
-		SubDir:  directoriesWithEmptyGoAndTestFiles(clientDirPath, kafkaDirName, httpDirName, rabbitmqDirName),
+func ClientDirectory(architectureType architecture.Type) architecture.Directory {
+	subDirectoryNames := []string{"kafkaclient", "httpclient", "rabbitmqclient"}
+	directoryPath := directory.FindPathOfGivenDirectoryByNameAndArchitecture(ClientDirectoryName, architectureType)
+	clientDirPath := directoryPath + "/" + ClientDirectoryName
+	return architecture.Directory{
+		AbsPath: directoryPath,
+		Name:    ClientDirectoryName,
+		SubDir:  directory.CreateDirectoriesWithEmptyGoAndTestFiles(clientDirPath, subDirectoryNames...),
 	}
 }
 
 //MARK: ./internal/util or ./internal/core/util directory initialization.
 
-func UtilDirectory(t arch.Type) arch.Directory {
-	dirName := "util"
-	dirPath := arch.PathByArchAndDirName[t][dirName]
-	utilDirPath := dirPath + "/" + dirName
-	return arch.Directory{
-		AbsPath: dirPath,
-		Name:    dirName,
-		SubDir:  directoriesWithEmptyGoAndTestFiles(utilDirPath, "ctxutil"),
+func UtilDirectory(architectureType architecture.Type) architecture.Directory {
+	directoryPath := directory.FindPathOfGivenDirectoryByNameAndArchitecture(UtilDirectoryName, architectureType)
+	utilDirPath := directoryPath + "/" + UtilDirectoryName
+	subDirectoryNames := []string{"ctxutil"}
+	return architecture.Directory{
+		AbsPath: directoryPath,
+		Name:    UtilDirectoryName,
+		SubDir:  directory.CreateDirectoriesWithEmptyGoAndTestFiles(utilDirPath, subDirectoryNames...),
 	}
-}
-
-func directoriesWithEmptyGoAndTestFiles(dirPath string, dirNames ...string) arch.Directories {
-	directories := make(arch.Directories, 0)
-	for _, name := range dirNames {
-		directories = append(directories, arch.Directory{
-			AbsPath: dirPath + "/",
-			Name:    name,
-			SubDir:  nil,
-			Files: arch.Files{
-				{
-					Name:    name + ".go",
-					Content: "package " + name,
-				},
-				{
-					Name:    name + "_test.go",
-					Content: "package " + name + "_test",
-				},
-			},
-		})
-	}
-	return directories
 }

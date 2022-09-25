@@ -1,33 +1,33 @@
 package microservice
 
 import (
-	"github.com/eneskzlcn/goarch/arch"
+	"github.com/eneskzlcn/goarch/architecture"
 	"github.com/eneskzlcn/goarch/common"
 )
 
-var InternalDirectory = arch.Directory{
-	AbsPath: arch.RootDirectory,
+var InternalDirectory = architecture.Directory{
+	AbsPath: architecture.RootDirectory,
 	Name:    "internal",
-	SubDir: arch.Directories{
-		common.ConfigDirectory(architecture),
+	SubDir: architecture.Directories{
+		common.ConfigDirectory(architecture.Microservice),
 		domainDirectory,
-		common.ClientDirectory(architecture),
-		common.UtilDirectory(architecture),
-		common.MocksDirectory(architecture),
+		common.ClientDirectory(architecture.Microservice),
+		common.UtilDirectory(architecture.Microservice),
+		common.MocksDirectory(architecture.Microservice),
 	},
 	Files: nil,
 }
 
-func domainFiles() arch.Files {
+func domainFiles() architecture.Files {
 	packageName := "domain"
-	files := make(arch.Files, 0)
+	files := make(architecture.Files, 0)
 	domainFileNames := []string{"request", "response", "domain", "service", "handler", "repository"}
 	for _, name := range domainFileNames {
-		file := arch.File{
+		file := architecture.File{
 			Name:    name + ".go",
 			Content: "package " + packageName,
 		}
-		testFile := arch.File{
+		testFile := architecture.File{
 			Name:    name + "_test" + ".go",
 			Content: "package " + packageName + "_test",
 		}
@@ -36,8 +36,8 @@ func domainFiles() arch.Files {
 	return files
 }
 
-var domainDirectory = arch.Directory{
-	AbsPath: arch.InternalDirectory,
+var domainDirectory = architecture.Directory{
+	AbsPath: architecture.InternalDirectory,
 	Name:    "domain",
 	SubDir:  nil,
 	Files:   domainFiles(),

@@ -2,25 +2,24 @@ package optional
 
 import (
 	"fmt"
-	"github.com/eneskzlcn/goarch/arch"
+	"github.com/eneskzlcn/goarch/architecture"
 	"github.com/eneskzlcn/goarch/common"
 	"github.com/eneskzlcn/goarch/tech"
 )
 
-type ArchDirectoryMapper = func(p arch.Type) arch.Directory
+type DirectoryCreatorByArchitecture = func(p architecture.Type) architecture.Directory
 
-var optionDirectoryMap = map[tech.Option]ArchDirectoryMapper{
+var optionDirectoryMap = map[tech.Option]DirectoryCreatorByArchitecture{
 	tech.Fiber:    common.FiberDirectory,
 	tech.Gin:      common.GinDirectory,
 	tech.Rabbitmq: common.RabbitmqDirectory,
 	tech.Kafka:    common.KafkaDirectory,
 	tech.Logger:   common.LoggerDirectory,
-	//tech.Client:   common.ClientDirectory,
 	tech.Postgres: common.PostgresDirectory,
 }
 
-func GetDirectoriesByOptionAndArch(t arch.Type, options tech.Options) arch.Directories {
-	directories := make(arch.Directories, 0)
+func GetDirectoriesByOptionAndArch(t architecture.Type, options tech.Options) architecture.Directories {
+	directories := make(architecture.Directories, 0)
 	for _, option := range options {
 		if archDirMapper, exists := optionDirectoryMap[option]; exists {
 			directory := archDirMapper(t)

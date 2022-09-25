@@ -1,4 +1,4 @@
-package arch
+package architecture
 
 type Type string
 
