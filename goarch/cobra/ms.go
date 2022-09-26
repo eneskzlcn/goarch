@@ -1,18 +1,16 @@
 /*
-Copyright © 2022 Nazif Enes Kızılcin enes.kizilcin@gmail.com
-*/
+Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 
+*/
 package cobra
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 )
 
-// nlwCmd represents the nlw command
-var nlwCmd = &cobra.Command{
-	Use:   "nlw",
+// msCmd represents the ms command
+var msCmd = &cobra.Command{
+	Use:   "ms",
 	Short: "A brief description of your command",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
@@ -20,21 +18,23 @@ and usage of using your command. For example:
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("nlw called")
+	Args: cobra.ExactArgs(1),
+	RunE: func(cmd *cobra.Command, args []string) error {
+		//options := tech.OptionsFromStr(args[0])
+		return nil
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(nlwCmd)
+	rootCmd.AddCommand(msCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// nlwCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// msCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// nlwCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// msCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

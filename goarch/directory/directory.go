@@ -1,71 +1,54 @@
 package directory
 
-import "github.com/eneskzlcn/goarch/architecture"
+import (
+	"github.com/eneskzlcn/goarch/goarch/file"
+	"github.com/eneskzlcn/goarch/goarch/fileutil"
+	"github.com/eneskzlcn/goarch/goarch/pathutil"
+)
 
-type CreatorByArchitecture = func(p architecture.Type) architecture.Directory
-
-func FindPathOfGivenDirectoryByNameAndArchitecture(directoryName string, architectureType architecture.Type) string {
-	directoryNameToPathMapOfGivenArchitecture := architectureToDirectoryNamesThenDirectoryNameToPath[architectureType]
-	pathOfGivenDirectoryName := directoryNameToPathMapOfGivenArchitecture[directoryName]
-	return pathOfGivenDirectoryName
+type Directory struct {
+	SubDirs Directories
+	Files   file.Files
 }
 
-type NameToPathMap map[string]string
+func New() Directory {
+	return Directory{SubDirs: Directories{}, Files: file.Files{}}
+}
 
-func CreateDirectoriesWithEmptyGoAndTestFiles(dirPath string, dirNames ...string) architecture.Directories {
-	directories := make(architecture.Directories, 0)
-	for _, name := range dirNames {
-		directories = append(directories, architecture.Directory{
-			AbsPath: dirPath + "/",
-			Name:    name,
-			SubDir:  nil,
-			Files: architecture.Files{
-				{
-					Name:    name + ".go",
-					Content: "package " + name,
-				},
-				{
-					Name:    name + "_test.go",
-					Content: "package " + name + "_test",
-				},
-			},
-		})
+type Directories map[string]Directory
+
+func (d Directory) Create(path, directoryName string) error {
+	if err := fileutil.CreateDirectory(path, directoryName); err != nil {
+		return err
 	}
-	return directories
+	childDirectoriesAndFilesPath := pathutil.ExtendPath(path, directoryName)
+	if err := d.createSubDirectories(childDirectoriesAndFilesPath); err != nil {
+		return err
+	}
+	if err := d.createFiles(childDirectoriesAndFilesPath); err != nil {
+		return err
+	}
+	return nil
 }
-
-var architectureToDirectoryNamesThenDirectoryNameToPath = map[architecture.Type]NameToPathMap{
-	architecture.Microservice: {
-		"kafka":    architecture.RootDirectory,
-		"logger":   architecture.RootDirectory,
-		"postgres": architecture.RootDirectory,
-		"rabbitmq": architecture.RootDirectory,
-		"server":   architecture.RootDirectory,
-		"config":   architecture.InternalDirectory,
-		"client":   architecture.InternalDirectory,
-		"mocks":    architecture.InternalDirectory,
-		"util":     architecture.InternalDirectory,
-	},
-	architecture.NLayeredWebApp: {
-		"kafka":    architecture.CoreDirectory,
-		"logger":   architecture.CoreDirectory,
-		"postgres": architecture.CoreDirectory,
-		"rabbitmq": architecture.CoreDirectory,
-		"server":   architecture.CoreDirectory,
-		"config":   architecture.InternalDirectory,
-		"client":   architecture.CoreDirectory,
-		"mocks":    architecture.InternalDirectory,
-		"util":     architecture.CoreDirectory,
-	},
-	architecture.NLayeredBackend: {
-		"kafka":    architecture.CoreDirectory,
-		"logger":   architecture.CoreDirectory,
-		"postgres": architecture.CoreDirectory,
-		"rabbitmq": architecture.CoreDirectory,
-		"server":   architecture.CoreDirectory,
-		"config":   architecture.InternalDirectory,
-		"client":   architecture.CoreDirectory,
-		"mocks":    architecture.InternalDirectory,
-		"util":     architecture.CoreDirectory,
-	},
+func (d Directory) createFiles(filesPath string) error {
+	for name, file := range d.Files {
+		if err := file.Create(filesPath, name); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (d Directory) PutSubDirectory(name string, directory Directory) {
+	d.SubDirs[name] = directory
+}
+func (d Directory) PutFile(name string, file file.File) {
+	d.Files[name] = file
+}
+func (d Directory) createSubDirectories(subDirectoryPath string) error {
+	for name, directory := range d.SubDirs {
+		if err := directory.Create(subDirectoryPath, name); err != nil {
+			return err
+		}
+	}
+	return nil
 }
