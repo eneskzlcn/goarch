@@ -6,6 +6,9 @@ type YamlFile struct {
 	Content string
 }
 
+func NewYamlFile(content string) YamlFile {
+	return YamlFile{Content: content}
+}
 func (y YamlFile) Create(path, name string) error {
 	fileName := y.nameToFilename(name)
 	if y.Content == "" {

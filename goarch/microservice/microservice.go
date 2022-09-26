@@ -3,7 +3,6 @@ package microservice
 import (
 	"github.com/eneskzlcn/goarch/goarch/arch"
 	"github.com/eneskzlcn/goarch/goarch/directory"
-	"github.com/eneskzlcn/goarch/goarch/file"
 )
 
 type Microservice struct {
@@ -23,11 +22,16 @@ func (m *Microservice) initializeArchitecture() {
 	m.initializeDevDirectory()
 }
 func (m *Microservice) initializeDevDirectory() {
+	m.arch.PutDirectory(".dev", m.initializeDirectory(".dev"))
+}
+func (m *Microservice) initializeLoggerDirectory() {
+	panic("implement me")
+}
+func (m *Microservice) initializeDirectory(directoryName string) directory.Directory {
 	devDirectory := directory.New()
-	devDirectoryFileNames := []string{"local", "dev", "qa", "prod"}
-	devDirectoryFileTemplate := file.YamlFile{}
-	for _, name := range devDirectoryFileNames {
-		devDirectory.PutFile(name, devDirectoryFileTemplate)
+	nameFileMapOfDirectory := directoryToNameFileMapper[directoryName]
+	for name, file := range nameFileMapOfDirectory {
+		devDirectory.PutFile(name, file)
 	}
-	m.arch.PutDirectory(".dev", devDirectory)
+	return devDirectory
 }

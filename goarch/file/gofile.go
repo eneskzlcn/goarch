@@ -9,6 +9,10 @@ type GoFile struct {
 	Content string
 }
 
+func NewGoFile(content string) GoFile {
+	return GoFile{Content: content}
+}
+
 func (g GoFile) Create(directoryPath, name string) error {
 	fileName := g.nameToFilename(name)
 	if g.Content == "" {
