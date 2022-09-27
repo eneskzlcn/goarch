@@ -40,3 +40,6 @@ func IsSqlFilename(filename string) bool {
 func IsMarkdownFilename(filename string) bool {
 	return strings.HasSuffix(filename, ".md")
 }
+func IsGohtmlFilename(filename string) bool {
+	return strings.HasSuffix(filename, ".gohtml")
+}

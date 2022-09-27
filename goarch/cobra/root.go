@@ -1,5 +1,5 @@
 /*
-Copyright © 2022 Nazif Enes Kızılcin enes.kizilcin@gmail.com
+Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 
 */
 
