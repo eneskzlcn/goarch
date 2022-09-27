@@ -11,9 +11,12 @@ type NLayeredWeb struct {
 
 func New(basePath string) *NLayeredWeb {
 	arch := arch.New(basePath)
-	nlw := NLayeredWeb{arch: arch}
+	nlw := &NLayeredWeb{arch: arch}
 	nlw.initializeArchitecture()
-	return &nlw
+	return nlw
+}
+func (nlw *NLayeredWeb) Create() error {
+	return nlw.arch.Create()
 }
 func (nlw *NLayeredWeb) initializeArchitecture() {
 	nlw.addInitializedCommonRootDirectories()
