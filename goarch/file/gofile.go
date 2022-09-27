@@ -26,6 +26,9 @@ func (g GoFile) createEmptyFile(directoryPath, fileName string) error {
 	return fileutil.CreateFileWithContent(directoryPath, fileName, fileContent)
 }
 func (g GoFile) nameToFilename(name string) string {
+	if fileutil.IsGoFilename(name) {
+		return name
+	}
 	return name + ".go"
 }
 func (g GoFile) emptyFileContent(packageName string) string {

@@ -2,31 +2,35 @@ package microservice
 
 import (
 	_ "embed"
+	"github.com/eneskzlcn/goarch/goarch/common"
+	"github.com/eneskzlcn/goarch/goarch/directory"
 	"github.com/eneskzlcn/goarch/goarch/file"
 )
 
-type DirectoryNameFileMap map[string]NameFileMap
+//MARK: main map that contains the relation of directory name --> file name --> file
+//go:embed templates/domain/handler.go
+var handlerGoFileContent string
 
-type NameFileMap map[string]file.File
+//go:embed templates/domain/service.go
+var serviceGoFileContent string
 
-//MARK: dev directory file content map initialization.
+//go:embed templates/domain/repository.go
+var repositoryGoFileContent string
 
-//go:embed templates/.dev/default_config_yaml.arch
-var defaultDevConfigYamlContent string
-
-var DevDirectoryNameFileMap = map[string]file.File{
-	"local": file.NewYamlFile(defaultDevConfigYamlContent),
-	"qa":    file.NewYamlFile(defaultDevConfigYamlContent),
-	"prod":  file.NewYamlFile(defaultDevConfigYamlContent),
-	"dev":   file.NewYamlFile(defaultDevConfigYamlContent),
-}
-
-//MARK: logger directory file contetn map initialization
-
-//var LoggerFileContentMap = map[string]string {
-//	"logger":
-//}
-
-var directoryToNameFileMapper = DirectoryNameFileMap{
-	".dev": DevDirectoryNameFileMap,
+var internalDirectory = directory.Directory{
+	SubDirs: directory.Directories{
+		"config": common.ConfigDirectory,
+		"util":   common.UtilDirectory,
+		"domain": directory.Directory{
+			Files: file.Files{
+				"domain":          file.NewGoFile(""),
+				"handler":         file.NewGoFile(handlerGoFileContent),
+				"handler_test":    file.NewGoTestFile(""),
+				"service":         file.NewGoFile(serviceGoFileContent),
+				"service_test":    file.NewGoTestFile(""),
+				"repository":      file.NewGoFile(repositoryGoFileContent),
+				"repository_test": file.NewGoFile(""),
+			},
+		},
+	},
 }

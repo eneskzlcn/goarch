@@ -2,7 +2,7 @@ package microservice
 
 import (
 	"github.com/eneskzlcn/goarch/goarch/arch"
-	"github.com/eneskzlcn/goarch/goarch/directory"
+	"github.com/eneskzlcn/goarch/goarch/common"
 )
 
 type Microservice struct {
@@ -19,19 +19,18 @@ func (m *Microservice) Create() error {
 	return m.arch.Create()
 }
 func (m *Microservice) initializeArchitecture() {
-	m.initializeDevDirectory()
+	m.addInitializedCommonDirectories()
+	m.addInitializedMicroserviceSpecificDirectories()
 }
-func (m *Microservice) initializeDevDirectory() {
-	m.arch.PutDirectory(".dev", m.initializeDirectory(".dev"))
+func (m *Microservice) addInitializedCommonDirectories() {
+	m.arch.PutDirectory("seed", common.SeedDirectory)
+	m.arch.PutDirectory(".cd", common.CdDirectory)
+	m.arch.PutDirectory("cmd", common.CmdDirectory)
+	m.arch.PutDirectory("logger", common.LoggerDirectory)
+	m.arch.PutDirectory("postgres", common.PostgresDirectory)
+	m.arch.PutDirectory("rabbitmq", common.RabbitmqDirectory)
+
 }
-func (m *Microservice) initializeLoggerDirectory() {
-	panic("implement me")
-}
-func (m *Microservice) initializeDirectory(directoryName string) directory.Directory {
-	devDirectory := directory.New()
-	nameFileMapOfDirectory := directoryToNameFileMapper[directoryName]
-	for name, file := range nameFileMapOfDirectory {
-		devDirectory.PutFile(name, file)
-	}
-	return devDirectory
+func (m *Microservice) addInitializedMicroserviceSpecificDirectories() {
+	m.arch.PutDirectory("internal", internalDirectory)
 }

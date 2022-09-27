@@ -14,5 +14,6 @@ func main() {
 	ms := microservice.New(".")
 	if err := ms.Create(); err != nil {
 		fmt.Println("error occurred when creating the ms architecture")
+		fmt.Println(err)
 	}
 }

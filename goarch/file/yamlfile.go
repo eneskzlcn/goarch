@@ -24,5 +24,8 @@ func (y YamlFile) emptyFileContent(fileName string) string {
 	return "--- #" + fileName
 }
 func (y YamlFile) nameToFilename(name string) string {
+	if fileutil.IsYamlFilename(name) {
+		return name
+	}
 	return name + ".yaml"
 }

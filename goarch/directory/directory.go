@@ -17,6 +17,8 @@ func New() Directory {
 
 type Directories map[string]Directory
 
+type NameFilesMap map[string]file.Files
+
 func (d Directory) Create(path, directoryName string) error {
 	if err := fileutil.CreateDirectory(path, directoryName); err != nil {
 		return err

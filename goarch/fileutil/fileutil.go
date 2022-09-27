@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 )
 
 func CreateDirectory(absPath, name string) error {
@@ -22,4 +23,20 @@ func CreateFileWithContent(absPath, name, content string) error {
 		return err
 	}
 	return nil
+}
+
+func IsGoFilename(filename string) bool {
+	return strings.HasSuffix(filename, ".go")
+}
+func IsGoTestFilename(filename string) bool {
+	return strings.HasSuffix(filename, "_test.go")
+}
+func IsYamlFilename(filename string) bool {
+	return strings.HasSuffix(filename, ".yaml")
+}
+func IsSqlFilename(filename string) bool {
+	return strings.HasSuffix(filename, ".sql")
+}
+func IsMarkdownFilename(filename string) bool {
+	return strings.HasSuffix(filename, ".md")
 }
