@@ -4,16 +4,9 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 */
 package main
 
-import (
-	"fmt"
-	"github.com/eneskzlcn/goarch/goarch/microservice"
-)
+import "github.com/eneskzlcn/goarch/goarch/cobra"
 
 func main() {
-	//cobra.Execute()
-	ms := microservice.New(".")
-	if err := ms.Create(); err != nil {
-		fmt.Println("error occurred when creating the ms architecture")
-		fmt.Println(err)
-	}
+	cobra.Execute()
+
 }

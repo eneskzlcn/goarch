@@ -5,6 +5,7 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cobra
 
 import (
+	"github.com/eneskzlcn/goarch/goarch/microservice"
 	"github.com/spf13/cobra"
 )
 
@@ -18,10 +19,9 @@ and usage of using your command. For example:
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
-	Args: cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		//options := tech.OptionsFromStr(args[0])
-		return nil
+		ms := microservice.New(".")
+		return ms.Create()
 	},
 }
 
