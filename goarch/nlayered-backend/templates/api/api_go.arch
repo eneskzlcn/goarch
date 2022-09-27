@@ -1,0 +1,23 @@
+package api
+
+import (
+	logger "<path-to-core>/logger"
+	"github.com/gofiber/fiber/v2"
+)
+
+type Service interface {
+}
+type Api struct {
+	logger  logger.Logger
+	service Service
+}
+
+func New(service Service, logger logger.Logger) *Api {
+	return &Api{service: service, logger: logger}
+}
+func (a *Api) Example(ctx *fiber.Ctx) error {
+	return ctx.SendString("example")
+}
+func (a *Api) RegisterRoutes(app *fiber.App) {
+	app.Get("/example", a.Example)
+}

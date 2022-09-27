@@ -8,13 +8,13 @@ import (
 )
 
 //MARK: main map that contains the relation of directory name --> file name --> file
-//go:embed templates/domain/handler.go
+//go:embed templates/domain/handler_go.arch
 var handlerGoFileContent string
 
-//go:embed templates/domain/service.go
+//go:embed templates/domain/service_go.arch
 var serviceGoFileContent string
 
-//go:embed templates/domain/repository.go
+//go:embed templates/domain/repository_go.arch
 var repositoryGoFileContent string
 
 var internalDirectory = directory.Directory{
@@ -22,6 +22,7 @@ var internalDirectory = directory.Directory{
 		"config": common.ConfigDirectory,
 		"util":   common.UtilDirectory,
 		"mocks":  common.MocksDirectory,
+		"client": common.ClientDirectory,
 		"domain": directory.Directory{
 			Files: file.Files{
 				"domain":          file.NewGoFile(""),
