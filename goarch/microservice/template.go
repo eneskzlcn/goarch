@@ -21,6 +21,7 @@ var internalDirectory = directory.Directory{
 	SubDirs: directory.Directories{
 		"config": common.ConfigDirectory,
 		"util":   common.UtilDirectory,
+		"mocks":  common.MocksDirectory,
 		"domain": directory.Directory{
 			Files: file.Files{
 				"domain":          file.NewGoFile(""),
