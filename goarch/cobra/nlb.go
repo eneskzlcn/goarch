@@ -1,3 +1,8 @@
+/*
+Copyright © 2022 NAME HERE <EMAIL ADDRESS>
+
+*/
+
 package cobra
 
 import (
@@ -5,7 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// nlbCmd represents the ms command
+// nlbCmd represents the nlb command
 var nlbCmd = &cobra.Command{
 	Use:   "nlb",
 	Short: "A brief description of your command",

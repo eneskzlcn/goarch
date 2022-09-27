@@ -24,6 +24,7 @@ func (m *Microservice) initializeArchitecture() {
 }
 func (m *Microservice) addInitializedCommonDirectories() {
 	m.arch.PutDirectory("seed", common.SeedDirectory)
+	m.arch.PutDirectory(".dev", common.DevDirectory)
 	m.arch.PutDirectory(".cd", common.CdDirectory)
 	m.arch.PutDirectory("cmd", common.CmdDirectory)
 	m.arch.PutDirectory("logger", common.LoggerDirectory)
