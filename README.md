@@ -33,7 +33,7 @@ These are the files used as template to create new files with that template cont
 ### Microservice Structure Look like
 
 ```
-📦try
+📦project
  ┣ 📂.cd
  ┃ ┣ 📂deployment-artifacts
  ┃ ┃ ┣ 📜deployment.yaml
@@ -52,22 +52,22 @@ These are the files used as template to create new files with that template cont
  ┃ ┣ 📂client
  ┃ ┃ ┣ 📂httpclient
  ┃ ┃ ┃ ┣ 📜httpclient.go
- ┃ ┃ ┃ ┗ 📜httpclient_test_test.go
+ ┃ ┃ ┃ ┗ 📜httpclient_test.go
  ┃ ┃ ┗ 📂rabbitclient
  ┃ ┃ ┃ ┣ 📜rabbitclient.go
- ┃ ┃ ┃ ┗ 📜rabbitclient_test_test.go
+ ┃ ┃ ┃ ┗ 📜rabbitclient_test.go
  ┃ ┣ 📂config
  ┃ ┃ ┣ 📜config.go
- ┃ ┃ ┣ 📜config_test_test.go
+ ┃ ┃ ┣ 📜config_test.go
  ┃ ┃ ┗ 📜db.go
  ┃ ┣ 📂domain
  ┃ ┃ ┣ 📜domain.go
  ┃ ┃ ┣ 📜handler.go
- ┃ ┃ ┣ 📜handler_test_test.go
+ ┃ ┃ ┣ 📜handler_test.go
  ┃ ┃ ┣ 📜repository.go
  ┃ ┃ ┣ 📜repository_test.go
  ┃ ┃ ┣ 📜service.go
- ┃ ┃ ┗ 📜service_test_test.go
+ ┃ ┃ ┗ 📜service_test.go
  ┃ ┣ 📂mocks
  ┃ ┃ ┗ 📂domain
  ┃ ┃ ┃ ┗ 📜mock_domain_repository.go
@@ -81,7 +81,7 @@ These are the files used as template to create new files with that template cont
  ┣ 📂postgres
  ┃ ┣ 📜mock_postgres.go
  ┃ ┣ 📜postgres.go
- ┃ ┗ 📜postgres_test_test.go
+ ┃ ┗ 📜postgres_test.go
  ┣ 📂rabbitmq
  ┃ ┗ 📜rabbitmq.go
  ┣ 📂seed
@@ -91,14 +91,14 @@ These are the files used as template to create new files with that template cont
  ┃ ┣ 📜drop_seed.sql
  ┃ ┣ 📜readme.md
  ┃ ┣ 📜seed.go
- ┃ ┗ 📜seed_test_test.go
+ ┃ ┗ 📜seed_test.go
  ┣ 📜go.mod
  ┗ 📜main.go
 ```
 
 ### N-Layered Backend Architecture Look Like
 ```
-📦try
+📦project
  ┣ 📂.cd
  ┃ ┣ 📂deployment-artifacts
  ┃ ┃ ┣ 📜deployment.yaml
@@ -116,26 +116,26 @@ These are the files used as template to create new files with that template cont
  ┣ 📂internal
  ┃ ┣ 📂api
  ┃ ┃ ┣ 📜api.go
- ┃ ┃ ┗ 📜api_test_test.go
+ ┃ ┃ ┗ 📜api_test.go
  ┃ ┣ 📂client
  ┃ ┃ ┣ 📂httpclient
  ┃ ┃ ┃ ┣ 📜httpclient.go
- ┃ ┃ ┃ ┗ 📜httpclient_test_test.go
+ ┃ ┃ ┃ ┗ 📜httpclient_test.go
  ┃ ┃ ┗ 📂rabbitclient
  ┃ ┃ ┃ ┣ 📜rabbitclient.go
- ┃ ┃ ┃ ┗ 📜rabbitclient_test_test.go
+ ┃ ┃ ┃ ┗ 📜rabbitclient_test.go
  ┃ ┣ 📂config
  ┃ ┃ ┣ 📜config.go
- ┃ ┃ ┣ 📜config_test_test.go
+ ┃ ┃ ┣ 📜config_test.go
  ┃ ┃ ┗ 📜db.go
  ┃ ┣ 📂core
  ┃ ┃ ┣ 📂client
  ┃ ┃ ┃ ┣ 📂httpclient
  ┃ ┃ ┃ ┃ ┣ 📜httpclient.go
- ┃ ┃ ┃ ┃ ┗ 📜httpclient_test_test.go
+ ┃ ┃ ┃ ┃ ┗ 📜httpclient_test.go
  ┃ ┃ ┃ ┗ 📂rabbitclient
  ┃ ┃ ┃ ┃ ┣ 📜rabbitclient.go
- ┃ ┃ ┃ ┃ ┗ 📜rabbitclient_test_test.go
+ ┃ ┃ ┃ ┃ ┗ 📜rabbitclient_test.go
  ┃ ┃ ┣ 📂logger
  ┃ ┃ ┃ ┣ 📜logger.go
  ┃ ┃ ┃ ┣ 📜zap_logger_adapter.go
@@ -143,10 +143,10 @@ These are the files used as template to create new files with that template cont
  ┃ ┃ ┣ 📂postgres
  ┃ ┃ ┃ ┣ 📜mock_postgres.go
  ┃ ┃ ┃ ┣ 📜postgres.go
- ┃ ┃ ┃ ┗ 📜postgres_test_test.go
+ ┃ ┃ ┃ ┗ 📜postgres_test.go
  ┃ ┃ ┣ 📂rabbitmq
  ┃ ┃ ┃ ┣ 📜config.go
- ┃ ┃ ┃ ┣ 📜config_test_test.go
+ ┃ ┃ ┃ ┣ 📜config_test.go
  ┃ ┃ ┃ ┗ 📜db.go
  ┃ ┃ ┣ 📂server
  ┃ ┃ ┃ ┗ 📜server.go
@@ -157,10 +157,10 @@ These are the files used as template to create new files with that template cont
  ┃ ┃ ┗ 📜user.go
  ┃ ┣ 📂repository
  ┃ ┃ ┣ 📜repository.go
- ┃ ┃ ┗ 📜repository_test_test.go
+ ┃ ┃ ┗ 📜repository_test.go
  ┃ ┗ 📂service
- ┃ ┃ ┣ 📜service.go
- ┃ ┃ ┗ 📜service_test_test.go
+ ┃ ┃ ┣ 📜repository.go
+ ┃ ┃ ┗ 📜repository_test.go
  ┣ 📂seed
  ┃ ┣ 📂cmd
  ┃ ┃ ┗ 📜main.go
@@ -168,13 +168,13 @@ These are the files used as template to create new files with that template cont
  ┃ ┣ 📜drop_seed.sql
  ┃ ┣ 📜readme.md
  ┃ ┣ 📜seed.go
- ┃ ┗ 📜seed_test_test.go
+ ┃ ┗ 📜seed_test.go
  ┣ 📜go.mod
  ┗ 📜main.go
 ```
 
 ``` N-Layered Web Application Looks Like
-📦try
+📦project
  ┣ 📂.cd
  ┃ ┣ 📂deployment-artifacts
  ┃ ┃ ┣ 📜deployment.yaml
@@ -193,13 +193,13 @@ These are the files used as template to create new files with that template cont
  ┃ ┣ 📂client
  ┃ ┃ ┣ 📂httpclient
  ┃ ┃ ┃ ┣ 📜httpclient.go
- ┃ ┃ ┃ ┗ 📜httpclient_test_test.go
+ ┃ ┃ ┃ ┗ 📜httpclient_test.go
  ┃ ┃ ┗ 📂rabbitclient
  ┃ ┃ ┃ ┣ 📜rabbitclient.go
- ┃ ┃ ┃ ┗ 📜rabbitclient_test_test.go
+ ┃ ┃ ┃ ┗ 📜rabbitclient_test.go
  ┃ ┣ 📂config
  ┃ ┃ ┣ 📜config.go
- ┃ ┃ ┣ 📜config_test_test.go
+ ┃ ┃ ┣ 📜config_test.go
  ┃ ┃ ┗ 📜db.go
  ┃ ┣ 📂core
  ┃ ┃ ┣ 📂cache
@@ -208,10 +208,10 @@ These are the files used as template to create new files with that template cont
  ┃ ┃ ┣ 📂client
  ┃ ┃ ┃ ┣ 📂httpclient
  ┃ ┃ ┃ ┃ ┣ 📜httpclient.go
- ┃ ┃ ┃ ┃ ┗ 📜httpclient_test_test.go
+ ┃ ┃ ┃ ┃ ┗ 📜httpclient_test.go
  ┃ ┃ ┃ ┗ 📂rabbitclient
  ┃ ┃ ┃ ┃ ┣ 📜rabbitclient.go
- ┃ ┃ ┃ ┃ ┗ 📜rabbitclient_test_test.go
+ ┃ ┃ ┃ ┃ ┗ 📜rabbitclient_test.go
  ┃ ┃ ┣ 📂logger
  ┃ ┃ ┃ ┣ 📜logger.go
  ┃ ┃ ┃ ┣ 📜zap_logger_adapter.go
@@ -222,10 +222,10 @@ These are the files used as template to create new files with that template cont
  ┃ ┃ ┣ 📂postgres
  ┃ ┃ ┃ ┣ 📜mock_postgres.go
  ┃ ┃ ┃ ┣ 📜postgres.go
- ┃ ┃ ┃ ┗ 📜postgres_test_test.go
+ ┃ ┃ ┃ ┗ 📜postgres_test.go
  ┃ ┃ ┣ 📂rabbitmq
  ┃ ┃ ┃ ┣ 📜config.go
- ┃ ┃ ┃ ┣ 📜config_test_test.go
+ ┃ ┃ ┃ ┣ 📜config_test.go
  ┃ ┃ ┃ ┗ 📜db.go
  ┃ ┃ ┣ 📂router
  ┃ ┃ ┃ ┣ 📜mux_router_adapter.go
@@ -242,10 +242,10 @@ These are the files used as template to create new files with that template cont
  ┃ ┃ ┗ 📜user.go
  ┃ ┣ 📂repository
  ┃ ┃ ┣ 📜repository.go
- ┃ ┃ ┗ 📜repository_test_test.go
+ ┃ ┃ ┗ 📜repository_test.go
  ┃ ┣ 📂service
  ┃ ┃ ┣ 📜repository.go
- ┃ ┃ ┗ 📜repository_test_test.go
+ ┃ ┃ ┗ 📜repository_test.go
  ┃ ┗ 📂web
  ┃ ┃ ┣ 📂template
  ┃ ┃ ┃ ┣ 📂include
@@ -264,7 +264,7 @@ These are the files used as template to create new files with that template cont
  ┃ ┣ 📜drop_seed.sql
  ┃ ┣ 📜readme.md
  ┃ ┣ 📜seed.go
- ┃ ┗ 📜seed_test_test.go
+ ┃ ┗ 📜seed_test.go
  ┣ 📜go.mod
  ┗ 📜main.go
 ```
