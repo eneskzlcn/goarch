@@ -13,13 +13,12 @@ import (
 // msCmd represents the ms command
 var msCmd = &cobra.Command{
 	Use:   "ms",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Creates a domain driven designed microservice.",
+	Long: `
+Call that command when you want to create a new microservice.
+Prefer to use it as a template before start to write any code,
+and then overwrite the template to make your application 
+work.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		ms := microservice.New(".")
 		return ms.Create()
