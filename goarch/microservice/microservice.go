@@ -30,6 +30,7 @@ func (m *Microservice) addInitializedCommonDirectories() {
 	m.arch.PutDirectory("logger", common.LoggerDirectory)
 	m.arch.PutDirectory("postgres", common.PostgresDirectory)
 	m.arch.PutDirectory("rabbitmq", common.RabbitmqDirectory)
+	m.arch.PutDirectory("server", common.ServerDirectory)
 
 }
 func (m *Microservice) addInitializedMicroserviceSpecificDirectories() {
