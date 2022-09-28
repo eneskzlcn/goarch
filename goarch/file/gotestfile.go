@@ -3,6 +3,7 @@ package file
 import (
 	"github.com/eneskzlcn/goarch/goarch/fileutil"
 	"path"
+	"strings"
 )
 
 type GoTestFile struct {
@@ -27,6 +28,9 @@ func (g GoTestFile) createEmptyFile(directoryPath, fileName string) error {
 func (g GoTestFile) nameToFilename(name string) string {
 	if fileutil.IsGoTestFilename(name) {
 		return name
+	}
+	if strings.HasSuffix(name, "_test") {
+		return name + ".go"
 	}
 	return name + "_test.go"
 }
